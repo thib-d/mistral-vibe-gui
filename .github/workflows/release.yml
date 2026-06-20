@@ -33,7 +33,7 @@ jobs:
       - name: Build binary
         run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
 
-      - name: Bundle .app
+      - name: Bundle .app and create .dmg
         run: |
           mkdir -p "Mistral Vibe.app/Contents/Resources"
           cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
@@ -55,12 +55,16 @@ jobs:
           </dict>
           </plist>
           EOF
-          zip -r mistral-vibe-mac-arm64.zip "Mistral Vibe.app"
+          mkdir dmg-staging
+          cp -r "Mistral Vibe.app" dmg-staging/
+          ln -s /Applications dmg-staging/Applications
+          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-arm64.dmg
+          rm -rf dmg-staging
 
       - uses: actions/upload-artifact@v4
         with:
           name: mac-arm64
-          path: mistral-vibe-mac-arm64.zip
+          path: mistral-vibe-mac-arm64.dmg
 
   build-mac-intel:
     runs-on: macos-13
@@ -89,7 +93,7 @@ jobs:
       - name: Build binary
         run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
 
-      - name: Bundle .app
+      - name: Bundle .app and create .dmg
         run: |
           mkdir -p "Mistral Vibe.app/Contents/Resources"
           cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
@@ -111,12 +115,16 @@ jobs:
           </dict>
           </plist>
           EOF
-          zip -r mistral-vibe-mac-intel.zip "Mistral Vibe.app"
+          mkdir dmg-staging
+          cp -r "Mistral Vibe.app" dmg-staging/
+          ln -s /Applications dmg-staging/Applications
+          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-intel.dmg
+          rm -rf dmg-staging
 
       - uses: actions/upload-artifact@v4
         with:
           name: mac-intel
-          path: mistral-vibe-mac-intel.zip
+          path: mistral-vibe-mac-intel.dmg
 
   build-linux:
     runs-on: ubuntu-22.04
@@ -157,7 +165,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            mistral-vibe-mac-arm64.zip
-            mistral-vibe-mac-intel.zip
+            mistral-vibe-mac-arm64.dmg
+            mistral-vibe-mac-intel.dmg
             mistral-vibe-linux
             mistral-vibe-windows.exe
