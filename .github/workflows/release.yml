@@ -59,6 +59,29 @@ jobs:
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
+          cat > dmg-staging/"⚠️ First launch — read me.txt" <<'README'
+INSTALLATION
+────────────
+1. Drag Mistral-Vibe-GUI to the Applications folder.
+
+FIRST LAUNCH (one-time only)
+─────────────────────────────
+macOS will block the app because it is not signed with an Apple
+Developer certificate. To open it anyway:
+
+  → Right-click Mistral-Vibe-GUI in Applications
+  → Choose "Open"
+  → Click "Open" in the dialog
+
+You only need to do this once. After that, double-click works normally.
+
+Alternatively, run this command in Terminal:
+  xattr -cr /Applications/Mistral-Vibe-GUI.app
+
+──────────────────────────────────────────────────────────────────
+This is an unofficial open-source project, not affiliated with
+Mistral AI. Source: https://github.com/thib-d/mistral-vibe-gui
+README
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-arm64.dmg
           rm -rf dmg-staging
 
@@ -120,6 +143,29 @@ jobs:
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
+          cat > dmg-staging/"⚠️ First launch — read me.txt" <<'README'
+INSTALLATION
+────────────
+1. Drag Mistral-Vibe-GUI to the Applications folder.
+
+FIRST LAUNCH (one-time only)
+─────────────────────────────
+macOS will block the app because it is not signed with an Apple
+Developer certificate. To open it anyway:
+
+  → Right-click Mistral-Vibe-GUI in Applications
+  → Choose "Open"
+  → Click "Open" in the dialog
+
+You only need to do this once. After that, double-click works normally.
+
+Alternatively, run this command in Terminal:
+  xattr -cr /Applications/Mistral-Vibe-GUI.app
+
+──────────────────────────────────────────────────────────────────
+This is an unofficial open-source project, not affiliated with
+Mistral AI. Source: https://github.com/thib-d/mistral-vibe-gui
+README
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-intel.dmg
           rm -rf dmg-staging
 
