@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mistral Vibe — Unofficial Desktop App</title>
+  <style>
+    :root {
+      --bg: #0d0d14;
+      --surface: #13131f;
+      --border: #1e1e30;
+      --orange: #ff7b00;
+      --orange-light: #ff9a3c;
+      --orange-dim: rgba(255,123,0,.12);
+      --text: #e8e8f0;
+      --muted: #7a7a9a;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13,13,20,.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .65rem; font-weight: 700; font-size: 1.1rem; }
+    .nav-logo img { width: 32px; height: 32px; }
+    .nav-links { display: flex; gap: 1.75rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-badge {
+      font-size: .7rem; background: var(--orange-dim); color: var(--orange);
+      border: 1px solid var(--orange); padding: .2rem .55rem; border-radius: 99px;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center; padding: 5rem 1.5rem 3.5rem;
+      max-width: 720px; margin: 0 auto;
+    }
+    .hero-logo { width: 96px; height: 96px; margin: 0 auto 1.5rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+    .hero h1 span { color: var(--orange); }
+    .hero p { color: var(--muted); font-size: 1.1rem; margin: .85rem auto 0; max-width: 520px; }
+    .disclaimer {
+      display: inline-flex; align-items: center; gap: .45rem;
+      margin: 1.75rem auto 0;
+      background: rgba(255,183,0,.07); border: 1px solid rgba(255,183,0,.3);
+      color: #c9a227; font-size: .82rem; padding: .5rem 1rem; border-radius: 99px;
+    }
+    .disclaimer::before { content: "⚠"; }
+
+    /* DOWNLOAD */
+    .download-section {
+      padding: 3rem 1.5rem;
+      max-width: 860px; margin: 0 auto;
+    }
+    .download-section h2 {
+      text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;
+    }
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+    }
+    .platform-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: border-color .2s, transform .15s;
+    }
+    .platform-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+    .platform-icon { font-size: 2.4rem; margin-bottom: .6rem; }
+    .platform-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+    .platform-card small { color: var(--muted); font-size: .78rem; display: block; margin-bottom: 1rem; }
+    .btn-download {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--orange); color: #000; font-weight: 700; font-size: .82rem;
+      padding: .5rem 1.1rem; border-radius: 8px; text-decoration: none;
+      transition: background .2s;
+    }
+    .btn-download:hover { background: var(--orange-light); }
+    .btn-download svg { width: 14px; height: 14px; }
+
+    /* FEATURES */
+    .features {
+      padding: 3rem 1.5rem;
+      max-width: 860px; margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+    .features h2 { text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .feature {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+    }
+    .feature-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+    .feature h3 { font-size: .95rem; font-weight: 600; margin-bottom: .35rem; }
+    .feature p { font-size: .85rem; color: var(--muted); }
+
+    /* DOCS */
+    .docs {
+      padding: 3rem 1.5rem;
+      max-width: 720px; margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+    .docs h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.75rem; }
+    .docs h3 { font-size: 1rem; font-weight: 600; color: var(--orange); margin: 1.5rem 0 .5rem; }
+    .docs p, .docs li { font-size: .9rem; color: var(--muted); }
+    .docs ul { padding-left: 1.25rem; }
+    .docs li { margin-bottom: .35rem; }
+    .docs code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: .15rem .45rem; border-radius: 5px; font-size: .82rem; color: var(--orange-light);
+    }
+    .code-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: .82rem; color: var(--orange-light);
+      overflow-x: auto; margin: .75rem 0;
+    }
+    .code-block .comment { color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    footer strong { color: var(--text); }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="logo.svg" alt="Mistral Vibe logo"/>
+    Mistral Vibe
+  </div>
+  <div class="nav-links">
+    <a href="#download">Download</a>
+    <a href="#features">Features</a>
+    <a href="#docs">Docs</a>
+    <a href="https://github.com/thib-d/mistral-vibe-gui">GitHub</a>
+  </div>
+  <span class="nav-badge">Unofficial</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-logo" src="logo.svg" alt="Mistral Vibe"/>
+  <h1>Chat with <span>Mistral</span><br/>like a desktop app</h1>
+  <p>
+    A lightweight, open-source desktop wrapper for
+    <a href="https://chat.mistral.ai" style="color:var(--orange);text-decoration:none">chat.mistral.ai</a>
+    — native window, persistent session, no browser tabs.
+  </p>
+  <span class="disclaimer">
+    Unofficial project — not affiliated with or endorsed by Mistral AI
+  </span>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download-section" id="download">
+  <h2>Download</h2>
+  <div class="platforms">
+
+    <div class="platform-card">
+      <div class="platform-icon"></div>
+      <h3>macOS — Apple Silicon</h3>
+      <small>M1 / M2 / M3 / M4 · arm64</small>
+      <a class="btn-download" href="https://github.com/thib-d/mistral-vibe-gui/releases/latest/download/mistral-vibe-mac-arm64">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Download
+      </a>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-icon">🖥️</div>
+      <h3>macOS — Intel</h3>
+      <small>Core i5/i7/i9 · amd64</small>
+      <a class="btn-download" href="https://github.com/thib-d/mistral-vibe-gui/releases/latest/download/mistral-vibe-mac-intel">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Download
+      </a>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-icon">🪟</div>
+      <h3>Windows</h3>
+      <small>Windows 10 / 11 · x64</small>
+      <a class="btn-download" href="https://github.com/thib-d/mistral-vibe-gui/releases/latest/download/mistral-vibe-windows.exe">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Download
+      </a>
+    </div>
+
+    <div class="platform-card">
+      <div class="platform-icon">🐧</div>
+      <h3>Linux</h3>
+      <small>Ubuntu / Debian · amd64</small>
+      <a class="btn-download" href="https://github.com/thib-d/mistral-vibe-gui/releases/latest/download/mistral-vibe-linux">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Download
+      </a>
+    </div>
+
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.25rem">
+    All releases are on
+    <a href="https://github.com/thib-d/mistral-vibe-gui/releases" style="color:var(--orange)">GitHub Releases</a>.
+    macOS users may need to run <code>xattr -dr com.apple.quarantine mistral-vibe-*</code> after download.
+  </p>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2>Features</h2>
+  <div class="feature-grid">
+    <div class="feature">
+      <div class="feature-icon">🪟</div>
+      <h3>Native window</h3>
+      <p>Dedicated app window — no browser tabs, no distractions. Lives in your Dock and ⌘+Tab like any app.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔐</div>
+      <h3>Persistent session</h3>
+      <p>Log in once, stay logged in. Session is stored locally in the system WebView data store.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📋</div>
+      <h3>Clipboard fixed</h3>
+      <p>Paste with ⌘+V works everywhere — WKWebView clipboard restriction bypassed natively.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Tiny &amp; fast</h3>
+      <p>Single ~2 MB binary. No Electron, no bundled Chromium. Uses the system WebKit engine.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔓</div>
+      <h3>Open source</h3>
+      <p>~30 lines of Go. Read it, build it yourself, modify it. MIT licensed.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🌐</div>
+      <h3>System WebView</h3>
+      <p>macOS uses WKWebKit (Safari engine). Windows uses WebView2. Linux uses WebKitGTK.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section class="docs" id="docs">
+  <h2>Documentation</h2>
+
+  <h3>Requirements</h3>
+  <ul>
+    <li><strong>macOS</strong> — 10.13+ (High Sierra or later), no extra install needed</li>
+    <li><strong>Windows</strong> — Windows 10/11 with WebView2 runtime (included in Win11, <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/" style="color:var(--orange)">download for Win10</a>)</li>
+    <li><strong>Linux</strong> — <code>libwebkit2gtk-4.0</code> must be installed</li>
+  </ul>
+
+  <h3>macOS — first launch</h3>
+  <p>macOS Gatekeeper will block the binary because it is unsigned. To allow it:</p>
+  <div class="code-block">
+<span class="comment"># Remove quarantine flag</span>
+xattr -dr com.apple.quarantine mistral-vibe-mac-arm64
+
+<span class="comment"># Then launch</span>
+./mistral-vibe-mac-arm64
+  </div>
+  <p>Or right-click the binary in Finder → <strong>Open</strong> → <strong>Open</strong> in the dialog.</p>
+
+  <h3>Linux — install dependency</h3>
+  <div class="code-block">
+<span class="comment"># Debian / Ubuntu</span>
+sudo apt install libwebkit2gtk-4.0-dev
+
+<span class="comment"># Fedora</span>
+sudo dnf install webkit2gtk4.0-devel
+  </div>
+
+  <h3>Build from source</h3>
+  <div class="code-block">
+git clone https://github.com/thib-d/mistral-vibe-gui
+cd mistral-vibe-gui
+go build -o mistral-vibe .
+./mistral-vibe
+  </div>
+
+  <h3>Paste not working?</h3>
+  <p>
+    Paste (⌘+V / Ctrl+V) is handled by a JS bridge built into the app — it bypasses the
+    WKWebView clipboard restriction. If it stops working after a Mistral site update, please
+    <a href="https://github.com/thib-d/mistral-vibe-gui/issues" style="color:var(--orange)">open an issue</a>.
+  </p>
+
+  <h3>Disclaimer</h3>
+  <p>
+    This project is <strong>not affiliated with, endorsed by, or associated with Mistral AI</strong> in any way.
+    It is a personal open-source tool that loads the public website
+    <a href="https://chat.mistral.ai" style="color:var(--orange)">chat.mistral.ai</a>
+    in a native window. Use it at your own risk.
+  </p>
+</section>
+
+<footer>
+  <p>
+    <strong>Mistral Vibe</strong> — unofficial desktop wrapper ·
+    <a href="https://github.com/thib-d/mistral-vibe-gui">GitHub</a> ·
+    MIT License
+  </p>
+  <p style="margin-top:.5rem">
+    Not affiliated with <a href="https://mistral.ai">Mistral AI</a>
+  </p>
+</footer>
+
+</body>
+</html>

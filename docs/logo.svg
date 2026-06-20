@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff7b00"/>
+      <stop offset="100%" style="stop-color:#ff9a3c"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="url(#bg)" stroke="#ff7b00" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Wind waves (mistral = Mediterranean wind) -->
+  <path d="M22 48 Q35 40 48 48 Q61 56 74 48 Q87 40 98 48" fill="none" stroke="url(#accent)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <path d="M22 60 Q35 52 48 60 Q61 68 74 60 Q87 52 98 60" fill="none" stroke="url(#accent)" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+  <path d="M22 72 Q35 64 48 72 Q61 80 74 72 Q87 64 98 72" fill="none" stroke="url(#accent)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Chat bubble -->
+  <rect x="30" y="32" width="60" height="44" rx="10" fill="url(#accent)" opacity="0.12"/>
+  <rect x="30" y="32" width="60" height="44" rx="10" fill="none" stroke="url(#accent)" stroke-width="2"/>
+  <polygon points="42,76 36,88 52,76" fill="url(#accent)" opacity="0.9"/>
+
+  <!-- MV monogram -->
+  <text x="60" y="61" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="22" fill="url(#accent)" text-anchor="middle" filter="url(#glow)">MV</text>
+</svg>
