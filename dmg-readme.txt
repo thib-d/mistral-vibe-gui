@@ -1,20 +1,22 @@
 INSTALLATION
 ------------
-1. Drag Mistral-Vibe-GUI to the Applications folder.
+Drag Mistral-Vibe-GUI to the Applications folder.
 
 FIRST LAUNCH (one-time only)
 -----------------------------
-macOS blocks apps that are not signed with an Apple Developer
-certificate. To open it for the first time:
+macOS may block the app because it is not from the App Store.
+To open it:
 
-  1. Right-click Mistral-Vibe-GUI in Applications
-  2. Choose "Open"
-  3. Click "Open" in the dialog that appears
+  Option 1 (easiest):
+    1. Try to open the app (double-click)
+    2. Go to System Settings > Privacy & Security
+    3. Scroll down and click "Open Anyway"
+    4. Confirm by clicking "Open" in the dialog
+
+  Option 2:
+    Right-click Mistral-Vibe-GUI > Open > Open in the dialog
 
 You only need to do this once. After that, double-click works normally.
-
-Or run this in Terminal:
-  xattr -cr /Applications/Mistral-Vibe-GUI.app
 
 ------------------------------------------------------------------
 Unofficial open-source project, not affiliated with Mistral AI.
