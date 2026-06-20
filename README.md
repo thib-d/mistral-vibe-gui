@@ -2,6 +2,9 @@
 
 > **Projet non officiel — not affiliated with or endorsed by Mistral AI.**
 
+> ⚠️ **Bêta** — testé uniquement sur macOS. Linux et Windows ne sont pas encore validés. Issues et PRs bienvenues !
+> ⚠️ **Beta** — tested on macOS only. Linux and Windows are untested. Issues and PRs welcome!
+
 Application de bureau légère pour [chat.mistral.ai](https://chat.mistral.ai/work) — fenêtre native, session persistante, sans onglets de navigateur.
 
 ---
