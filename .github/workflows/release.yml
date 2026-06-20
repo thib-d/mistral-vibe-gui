@@ -59,13 +59,13 @@ jobs:
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
-          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO ${{ github.ref_name }}-mac-arm64.dmg
+          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-arm64.dmg
           rm -rf dmg-staging
 
       - uses: actions/upload-artifact@v4
         with:
           name: mac-arm64
-          path: ${{ github.ref_name }}-mac-arm64.dmg
+          path: mistral-vibe-mac-arm64.dmg
 
   build-mac-intel:
     runs-on: macos-13
@@ -120,13 +120,13 @@ jobs:
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
-          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO ${{ github.ref_name }}-mac-intel.dmg
+          hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-intel.dmg
           rm -rf dmg-staging
 
       - uses: actions/upload-artifact@v4
         with:
           name: mac-intel
-          path: ${{ github.ref_name }}-mac-intel.dmg
+          path: mistral-vibe-mac-intel.dmg
 
   build-linux:
     runs-on: ubuntu-22.04
@@ -136,11 +136,11 @@ jobs:
         with:
           go-version: "1.22"
       - run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.0-dev
-      - run: go build -o ${{ github.ref_name }}-linux .
+      - run: go build -o mistral-vibe-linux .
       - uses: actions/upload-artifact@v4
         with:
           name: linux
-          path: ${{ github.ref_name }}-linux
+          path: mistral-vibe-linux
 
   build-windows:
     runs-on: windows-latest
@@ -149,11 +149,11 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: "1.22"
-      - run: go build -o ${{ github.ref_name }}-windows.exe .
+      - run: go build -o mistral-vibe-windows.exe .
       - uses: actions/upload-artifact@v4
         with:
           name: windows
-          path: ${{ github.ref_name }}-windows.exe
+          path: mistral-vibe-windows.exe
 
   release:
     needs: [build-mac-arm64, build-mac-intel, build-linux, build-windows]
@@ -169,7 +169,7 @@ jobs:
         with:
           fail_on_unmatched_files: false
           files: |
-            ${{ github.ref_name }}-mac-arm64.dmg
-            ${{ github.ref_name }}-mac-intel.dmg
-            ${{ github.ref_name }}-linux
-            ${{ github.ref_name }}-windows.exe
+            mistral-vibe-mac-arm64.dmg
+            mistral-vibe-mac-intel.dmg
+            mistral-vibe-linux
+            mistral-vibe-windows.exe
