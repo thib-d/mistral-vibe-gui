@@ -42,8 +42,8 @@ jobs:
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-            <key>CFBundleName</key>             <string>Mistral-Vibe-GUI</string>
-            <key>CFBundleDisplayName</key>      <string>Mistral-Vibe-GUI</string>
+            <key>CFBundleName</key>             <string>Mistral Vibe</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
             <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
             <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
             <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
@@ -126,8 +126,8 @@ README
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-            <key>CFBundleName</key>             <string>Mistral-Vibe-GUI</string>
-            <key>CFBundleDisplayName</key>      <string>Mistral-Vibe-GUI</string>
+            <key>CFBundleName</key>             <string>Mistral Vibe</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
             <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
             <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
             <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
