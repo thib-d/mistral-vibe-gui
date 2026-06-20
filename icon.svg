@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1028"/>
+      <stop offset="100%" style="stop-color:#0d0d1a"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff8c00"/>
+      <stop offset="100%" style="stop-color:#ffb347"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background (macOS icon style) -->
+  <rect width="1024" height="1024" rx="230" ry="230" fill="url(#bg)"/>
+
+  <!-- Outer glow ring -->
+  <rect x="32" y="32" width="960" height="960" rx="200" ry="200"
+        fill="none" stroke="url(#glow)" stroke-width="6" opacity="0.25"/>
+
+  <!-- Wind waves — 3 arcs, stacked, orange -->
+  <path d="M180 390 Q340 300 512 390 Q684 480 844 390"
+        fill="none" stroke="url(#glow)" stroke-width="56"
+        stroke-linecap="round" opacity="0.18"/>
+  <path d="M180 512 Q340 422 512 512 Q684 602 844 512"
+        fill="none" stroke="url(#glow)" stroke-width="72"
+        stroke-linecap="round" opacity="0.55"/>
+  <path d="M180 634 Q340 544 512 634 Q684 724 844 634"
+        fill="none" stroke="url(#glow)" stroke-width="56"
+        stroke-linecap="round" opacity="0.18"/>
+
+  <!-- Centered bold "M" -->
+  <text x="512" y="590"
+        font-family="-apple-system, SF Pro Display, Helvetica Neue, Arial, sans-serif"
+        font-weight="800"
+        font-size="480"
+        fill="url(#glow)"
+        text-anchor="middle"
+        opacity="0.95">M</text>
+</svg>

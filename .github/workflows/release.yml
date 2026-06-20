@@ -13,11 +13,54 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: "1.22"
-      - run: go build -o mistral-vibe-mac-arm64 .
+
+      - name: Install rsvg-convert
+        run: brew install librsvg
+
+      - name: Generate .icns
+        run: |
+          mkdir -p AppIcon.iconset
+          for size in 16 32 64 128 256 512 1024; do
+            rsvg-convert -w $size -h $size icon.svg -o AppIcon.iconset/icon_${size}x${size}.png
+          done
+          cp AppIcon.iconset/icon_32x32.png   AppIcon.iconset/icon_16x16@2x.png
+          cp AppIcon.iconset/icon_64x64.png   AppIcon.iconset/icon_32x32@2x.png
+          cp AppIcon.iconset/icon_256x256.png AppIcon.iconset/icon_128x128@2x.png
+          cp AppIcon.iconset/icon_512x512.png AppIcon.iconset/icon_256x256@2x.png
+          cp AppIcon.iconset/icon_1024x1024.png AppIcon.iconset/icon_512x512@2x.png
+          iconutil -c icns AppIcon.iconset -o AppIcon.icns
+
+      - name: Build binary
+        run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
+
+      - name: Bundle .app
+        run: |
+          mkdir -p "Mistral Vibe.app/Contents/Resources"
+          cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
+          cat > "Mistral Vibe.app/Contents/Info.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>             <string>Mistral Vibe</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
+            <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
+            <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
+            <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
+            <key>CFBundleExecutable</key>       <string>mistral-vibe</string>
+            <key>CFBundleIconFile</key>         <string>AppIcon</string>
+            <key>CFBundlePackageType</key>      <string>APPL</string>
+            <key>NSHighResolutionCapable</key>  <true/>
+            <key>LSMinimumSystemVersion</key>   <string>10.13</string>
+          </dict>
+          </plist>
+          EOF
+          zip -r mistral-vibe-mac-arm64.zip "Mistral Vibe.app"
+
       - uses: actions/upload-artifact@v4
         with:
           name: mac-arm64
-          path: mistral-vibe-mac-arm64
+          path: mistral-vibe-mac-arm64.zip
 
   build-mac-intel:
     runs-on: macos-13
@@ -26,11 +69,54 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: "1.22"
-      - run: go build -o mistral-vibe-mac-intel .
+
+      - name: Install rsvg-convert
+        run: brew install librsvg
+
+      - name: Generate .icns
+        run: |
+          mkdir -p AppIcon.iconset
+          for size in 16 32 64 128 256 512 1024; do
+            rsvg-convert -w $size -h $size icon.svg -o AppIcon.iconset/icon_${size}x${size}.png
+          done
+          cp AppIcon.iconset/icon_32x32.png   AppIcon.iconset/icon_16x16@2x.png
+          cp AppIcon.iconset/icon_64x64.png   AppIcon.iconset/icon_32x32@2x.png
+          cp AppIcon.iconset/icon_256x256.png AppIcon.iconset/icon_128x128@2x.png
+          cp AppIcon.iconset/icon_512x512.png AppIcon.iconset/icon_256x256@2x.png
+          cp AppIcon.iconset/icon_1024x1024.png AppIcon.iconset/icon_512x512@2x.png
+          iconutil -c icns AppIcon.iconset -o AppIcon.icns
+
+      - name: Build binary
+        run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
+
+      - name: Bundle .app
+        run: |
+          mkdir -p "Mistral Vibe.app/Contents/Resources"
+          cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
+          cat > "Mistral Vibe.app/Contents/Info.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>             <string>Mistral Vibe</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
+            <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
+            <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
+            <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
+            <key>CFBundleExecutable</key>       <string>mistral-vibe</string>
+            <key>CFBundleIconFile</key>         <string>AppIcon</string>
+            <key>CFBundlePackageType</key>      <string>APPL</string>
+            <key>NSHighResolutionCapable</key>  <true/>
+            <key>LSMinimumSystemVersion</key>   <string>10.13</string>
+          </dict>
+          </plist>
+          EOF
+          zip -r mistral-vibe-mac-intel.zip "Mistral Vibe.app"
+
       - uses: actions/upload-artifact@v4
         with:
           name: mac-intel
-          path: mistral-vibe-mac-intel
+          path: mistral-vibe-mac-intel.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -71,7 +157,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            mistral-vibe-mac-arm64
-            mistral-vibe-mac-intel
+            mistral-vibe-mac-arm64.zip
+            mistral-vibe-mac-intel.zip
             mistral-vibe-linux
             mistral-vibe-windows.exe
