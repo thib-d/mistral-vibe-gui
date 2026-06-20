@@ -31,19 +31,19 @@ jobs:
           iconutil -c icns AppIcon.iconset -o AppIcon.icns
 
       - name: Build binary
-        run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
+        run: go build -o "Mistral-Vibe-GUI.app/Contents/MacOS/mistral-vibe" .
 
       - name: Bundle .app and create .dmg
         run: |
-          mkdir -p "Mistral Vibe.app/Contents/Resources"
-          cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
-          cat > "Mistral Vibe.app/Contents/Info.plist" <<EOF
+          mkdir -p "Mistral-Vibe-GUI.app/Contents/Resources"
+          cp AppIcon.icns "Mistral-Vibe-GUI.app/Contents/Resources/AppIcon.icns"
+          cat > "Mistral-Vibe-GUI.app/Contents/Info.plist" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-            <key>CFBundleName</key>             <string>Mistral Vibe</string>
-            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
+            <key>CFBundleName</key>             <string>Mistral-Vibe-GUI</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral-Vibe-GUI</string>
             <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
             <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
             <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
@@ -55,9 +55,9 @@ jobs:
           </dict>
           </plist>
           EOF
-          codesign --deep --force --sign - "Mistral Vibe.app"
+          codesign --deep --force --sign - "Mistral-Vibe-GUI.app"
           mkdir dmg-staging
-          cp -r "Mistral Vibe.app" dmg-staging/
+          cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-arm64.dmg
           rm -rf dmg-staging
@@ -92,19 +92,19 @@ jobs:
           iconutil -c icns AppIcon.iconset -o AppIcon.icns
 
       - name: Build binary
-        run: go build -o "Mistral Vibe.app/Contents/MacOS/mistral-vibe" .
+        run: go build -o "Mistral-Vibe-GUI.app/Contents/MacOS/mistral-vibe" .
 
       - name: Bundle .app and create .dmg
         run: |
-          mkdir -p "Mistral Vibe.app/Contents/Resources"
-          cp AppIcon.icns "Mistral Vibe.app/Contents/Resources/AppIcon.icns"
-          cat > "Mistral Vibe.app/Contents/Info.plist" <<EOF
+          mkdir -p "Mistral-Vibe-GUI.app/Contents/Resources"
+          cp AppIcon.icns "Mistral-Vibe-GUI.app/Contents/Resources/AppIcon.icns"
+          cat > "Mistral-Vibe-GUI.app/Contents/Info.plist" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-            <key>CFBundleName</key>             <string>Mistral Vibe</string>
-            <key>CFBundleDisplayName</key>      <string>Mistral Vibe</string>
+            <key>CFBundleName</key>             <string>Mistral-Vibe-GUI</string>
+            <key>CFBundleDisplayName</key>      <string>Mistral-Vibe-GUI</string>
             <key>CFBundleIdentifier</key>       <string>com.thib-d.mistral-vibe</string>
             <key>CFBundleVersion</key>          <string>${{ github.ref_name }}</string>
             <key>CFBundleShortVersionString</key><string>${{ github.ref_name }}</string>
@@ -116,9 +116,9 @@ jobs:
           </dict>
           </plist>
           EOF
-          codesign --deep --force --sign - "Mistral Vibe.app"
+          codesign --deep --force --sign - "Mistral-Vibe-GUI.app"
           mkdir dmg-staging
-          cp -r "Mistral Vibe.app" dmg-staging/
+          cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-intel.dmg
           rm -rf dmg-staging
