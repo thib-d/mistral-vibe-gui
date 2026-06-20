@@ -55,6 +55,7 @@ jobs:
           </dict>
           </plist>
           EOF
+          codesign --deep --force --sign - "Mistral Vibe.app"
           mkdir dmg-staging
           cp -r "Mistral Vibe.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
@@ -115,6 +116,7 @@ jobs:
           </dict>
           </plist>
           EOF
+          codesign --deep --force --sign - "Mistral Vibe.app"
           mkdir dmg-staging
           cp -r "Mistral Vibe.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
