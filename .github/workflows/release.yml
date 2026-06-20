@@ -59,29 +59,29 @@ jobs:
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
-          cat > dmg-staging/"⚠️ First launch — read me.txt" <<'README'
+          cat > "dmg-staging/READ ME FIRST.txt" <<'ENDOFREADME'
 INSTALLATION
-────────────
+------------
 1. Drag Mistral-Vibe-GUI to the Applications folder.
 
 FIRST LAUNCH (one-time only)
-─────────────────────────────
-macOS will block the app because it is not signed with an Apple
-Developer certificate. To open it anyway:
+-----------------------------
+macOS blocks apps that are not signed with an Apple Developer
+certificate. To open it for the first time:
 
-  → Right-click Mistral-Vibe-GUI in Applications
-  → Choose "Open"
-  → Click "Open" in the dialog
+  1. Right-click Mistral-Vibe-GUI in Applications
+  2. Choose "Open"
+  3. Click "Open" in the dialog that appears
 
 You only need to do this once. After that, double-click works normally.
 
-Alternatively, run this command in Terminal:
+Or run this in Terminal:
   xattr -cr /Applications/Mistral-Vibe-GUI.app
 
-──────────────────────────────────────────────────────────────────
-This is an unofficial open-source project, not affiliated with
-Mistral AI. Source: https://github.com/thib-d/mistral-vibe-gui
-README
+------------------------------------------------------------------
+Unofficial open-source project, not affiliated with Mistral AI.
+Source: https://github.com/thib-d/mistral-vibe-gui
+ENDOFREADME
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-arm64.dmg
           rm -rf dmg-staging
 
@@ -143,29 +143,29 @@ README
           mkdir dmg-staging
           cp -r "Mistral-Vibe-GUI.app" dmg-staging/
           ln -s /Applications dmg-staging/Applications
-          cat > dmg-staging/"⚠️ First launch — read me.txt" <<'README'
+          cat > "dmg-staging/READ ME FIRST.txt" <<'ENDOFREADME'
 INSTALLATION
-────────────
+------------
 1. Drag Mistral-Vibe-GUI to the Applications folder.
 
 FIRST LAUNCH (one-time only)
-─────────────────────────────
-macOS will block the app because it is not signed with an Apple
-Developer certificate. To open it anyway:
+-----------------------------
+macOS blocks apps that are not signed with an Apple Developer
+certificate. To open it for the first time:
 
-  → Right-click Mistral-Vibe-GUI in Applications
-  → Choose "Open"
-  → Click "Open" in the dialog
+  1. Right-click Mistral-Vibe-GUI in Applications
+  2. Choose "Open"
+  3. Click "Open" in the dialog that appears
 
 You only need to do this once. After that, double-click works normally.
 
-Alternatively, run this command in Terminal:
+Or run this in Terminal:
   xattr -cr /Applications/Mistral-Vibe-GUI.app
 
-──────────────────────────────────────────────────────────────────
-This is an unofficial open-source project, not affiliated with
-Mistral AI. Source: https://github.com/thib-d/mistral-vibe-gui
-README
+------------------------------------------------------------------
+Unofficial open-source project, not affiliated with Mistral AI.
+Source: https://github.com/thib-d/mistral-vibe-gui
+ENDOFREADME
           hdiutil create -volname "Mistral Vibe" -srcfolder dmg-staging -ov -format UDZO mistral-vibe-mac-intel.dmg
           rm -rf dmg-staging
 
